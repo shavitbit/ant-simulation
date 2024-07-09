@@ -3,14 +3,14 @@ from environment import Environment
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import matplotlib.ticker as ticker
+import matplotlib.patches as mpatches
 #-------------------------------
 num_ants = 20                   #
 width = 100                     #  
 height = 100                    #
 num_of_food = 20                 #
 # Number of simulation steps    #
-num_steps = 200                 #
+num_steps = 400                 #
 #--------------------------------
 
 #Create the 2d environment include nest location, pheromone grid and randomly place food
@@ -25,10 +25,12 @@ ax.set_ylim(0, environment.height)
 ax.set_title('Ant Simulator')
 ax.set_xlabel ("X")
 ax.set_ylabel ("Y")
+fig.canvas.manager.set_window_title('Ant Simulator')
+
 
 scat = ax.scatter([], [], c='red', s=10)  # Scatter plot for ants
 food_scat = ax.scatter([], [], c='green', s=10)  # Scatter plot for food
-pheromone_im = ax.imshow(environment.pheromone_grid, cmap='Greens', alpha=0.6, extent=[0, environment.width, 0, environment.height], origin='lower')
+pheromone_im = ax.imshow(environment.pheromone_grid, cmap='gray', vmin=0, vmax=255, alpha=0.6, extent=[0, environment.width, 0, environment.height], origin='lower')
 
 # Add text for frame count
 frame_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
@@ -42,7 +44,7 @@ def format_coord(x, y):
         coord = f'x={col}, y={row}'
     else:
         coord = f'x={x:.2f}, y={y:.2f}'
-    print(coord)
+    
     return coord
 
 # Set the custom coordinate formatter
@@ -61,7 +63,7 @@ def update(frame):
     scat.set_offsets(ant_positions)
 
     # Update food positions
-    food_positions = np.argwhere(environment.environment == 1)
+    food_positions = np.argwhere(environment.environment > 0)
     food_scat.set_offsets(food_positions)
 
     # Update pheromone grid
@@ -69,11 +71,20 @@ def update(frame):
 
     # Update frame count text
     frame_text.set_text(f'Frame: {frame}')
-
+    print (environment.localnest.__str__())
     return scat, food_scat, pheromone_im, frame_text, nest_scat
 
+# Create proxy artists for legend
+ant_patch = mpatches.Patch(color='red', label='Ants')
+food_patch = mpatches.Patch(color='green', label='Food')
+nest_patch = mpatches.Patch(color='blue', label='Nest')
+pheromone_patch = mpatches.Patch(color='gray', label='Pheromone')
+
+# Add legend to the plot
+ax.legend(handles=[ant_patch, food_patch, nest_patch, pheromone_patch], loc='upper left', bbox_to_anchor=(1, 1))
+
 # Create the animation, setting repeat to False to stop after the last frame
-ani = animation.FuncAnimation(fig, update, frames=range(num_steps), interval=100, blit=True, repeat=False)
+ani = animation.FuncAnimation(fig, update, frames=range(num_steps), interval=100, blit=True, repeat=True)
 
 # Show the plot
 plt.show()

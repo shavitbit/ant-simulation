@@ -4,6 +4,7 @@ class Nest:
         self.y = y
         self.ants_inside = 0
         self.ants_outside = 0
+        self.food_count = 0
 
     def update_ant_status(self, ants):
         self.ants_inside = 0
@@ -15,4 +16,4 @@ class Nest:
                 self.ants_outside += 1
 
     def __str__(self):
-        return f'Nest at ({self.x}, {self.y}): {self.ants_inside} ants inside, {self.ants_outside} ants outside'
+        return f'Nest food count = {self.food_count}'

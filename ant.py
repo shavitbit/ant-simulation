@@ -1,8 +1,8 @@
 import random
 import string
-from environment import Environment as enviro
+
 class Ant:
-    def __init__(self, environment):#x, y, height, width, environment):
+    def __init__(self, environment):
         self.x = environment.localnest.x
         self.y = environment.localnest.y
         self.environment = environment
@@ -15,9 +15,10 @@ class Ant:
 
     def move(self, pheromone_grid):
         # Move based on pheromone concentration
-        if self.carrying_food == True:
-            self.go_nest()
+        if self.carrying_food:
             self.drop_pheromone(pheromone_grid)
+            self.go_nest()
+            
         else:
             best_move = self.sense_pheromone(pheromone_grid)
             if best_move:
@@ -43,9 +44,9 @@ class Ant:
 
     def sense_food(self, environment):
         # Simple sensing for now
-        if environment.environment[self.x, self.y] == 1:
+        if environment.environment[self.x, self.y] > 0:
             self.carrying_food = True
-            environment.environment[self.x, self.y] = 0  # Remove food from the environment
+            environment.environment[self.x, self.y] -= 1  # Decreace the food count
 
     def drop_pheromone(self, pheromone_grid):
         if self.carrying_food:
@@ -54,32 +55,33 @@ class Ant:
 
            # Add pheromone proportional to the distance to the nest
            # You can adjust the factor if needed
-           pheromone_grid[self.x, self.y] += 10 * (distance_to_nest + 1)
+           #if pheromone_grid[self.x, self.y] < 300:
+           pheromone_grid[self.x, self.y] += 5 * (distance_to_nest + 1)
 
     def sense_pheromone(self, pheromone_grid):
-        # Define the Sensing Radius
-        sensing_radius = 1
+        sensing_radius = 5
         max_pheromone = 0
         best_move = None
-        possible_moves = ['up', 'down', 'left', 'right']
-
-        for move in possible_moves:
-            new_x, new_y = self.x, self.y
-            if move == 'up' and self.y > 0:
-                new_y -= 1
-            elif move == 'down' and self.y < self.height - 1:
-                new_y += 1
-            elif move == 'left' and self.x > 0:
-                new_x -= 1
-            elif move == 'right' and self.x < self.width - 1:
-                new_x += 1
-            
-            if 0 <= new_x < self.width and 0 <= new_y < self.height:
-                if pheromone_grid[new_x, new_y] > max_pheromone:
-                    max_pheromone = pheromone_grid[new_x, new_y]
-                    best_move = move
-
-        return best_move
+    
+        for dx in range(-sensing_radius, sensing_radius + 1):
+            for dy in range(-sensing_radius, sensing_radius + 1):
+                new_x, new_y = self.x + dx, self.y + dy
+                if 0 <= new_x < self.width and 0 <= new_y < self.height:
+                    if pheromone_grid[new_x, new_y] > max_pheromone:
+                        max_pheromone = pheromone_grid[new_x, new_y]
+                        best_move = (new_x, new_y)
+    
+        if best_move:
+            move_x, move_y = best_move
+            if move_x < self.x:
+                return 'left'
+            elif move_x > self.x:
+                return 'right'
+            elif move_y < self.y:
+                return 'up'
+            elif move_y > self.y:
+                return 'down'
+        return None
 
 
     def go_nest(self):
@@ -96,6 +98,7 @@ class Ant:
 
         if self.x == self.nest_x and self.y == self.nest_y:
            self.carrying_food = False
+           self.environment.add_food_to_nest()
            
            
 
