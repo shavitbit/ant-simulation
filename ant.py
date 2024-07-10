@@ -56,7 +56,7 @@ class Ant:
            # Add pheromone proportional to the distance to the nest
            # You can adjust the factor if needed
            #if pheromone_grid[self.x, self.y] < 300:
-           pheromone_grid[self.x, self.y] += 5 * (distance_to_nest + 1)
+           pheromone_grid[self.x, self.y] += 3.5 * (distance_to_nest + 1)
 
     def sense_pheromone(self, pheromone_grid):
         sensing_radius = 5

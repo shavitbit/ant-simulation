@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ant Simulation</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ant Simulation</h1>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        async function fetchSimulationData() {
+            const response = await fetch('/simulate');
+            const data = await response.json();
+            return data;
+        }
+
+        function drawSimulation(data) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            data.ant_positions.forEach(([x, y]) => {
+                ctx.fillStyle = 'red';
+                ctx.fillRect(x * 5, y * 5, 5, 5);
+            });
+
+            data.food_positions.forEach(([x, y]) => {
+                ctx.fillStyle = 'green';
+                ctx.fillRect(x * 5, y * 5, 5, 5);
+            });
+
+            data.pheromone_grid.forEach((row, i) => {
+                row.forEach((pheromone, j) => {
+                    if (pheromone > 0) {
+                        ctx.fillStyle = `rgba(0, 0, 0, ${pheromone / 255})`;
+                        ctx.fillRect(i * 5, j * 5, 5, 5);
+                    }
+                });
+            });
+        }
+
+        async function runSimulation() {
+            const data = await fetchSimulationData();
+            drawSimulation(data);
+        }
+
+        runSimulation();
+    </script>
+</body>
+</html>

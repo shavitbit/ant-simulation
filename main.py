@@ -56,7 +56,7 @@ def update(frame):
         ant.move(environment.pheromone_grid)  # Pass pheromone_grid to move function
         ant.sense_food(environment)
         ant.drop_pheromone(environment.pheromone_grid)
-        environment.pheromone_decay(environment.pheromone_grid)
+    environment.pheromone_decay(environment.pheromone_grid)
 
     # Update ant positions
     ant_positions = [(ant.x, ant.y) for ant in ants]
@@ -72,6 +72,8 @@ def update(frame):
     # Update frame count text
     frame_text.set_text(f'Frame: {frame}')
     print (environment.localnest.__str__())
+    print(f"Frame: {frame}")
+    print(f"Pheromone Grid:\n{environment.pheromone_grid.max()}")
     return scat, food_scat, pheromone_im, frame_text, nest_scat
 
 # Create proxy artists for legend

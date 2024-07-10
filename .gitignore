@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+# my private python files
 .venv/
 antenv/
 bin/
