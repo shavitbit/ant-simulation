@@ -1,6 +1,6 @@
 import random
 import string
-import numpy as np
+
 
 class Ant:
     def __init__(self, environment):

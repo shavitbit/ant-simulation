@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template
 import numpy as np
-from ant import Ant
-from environment import Environment
+from models.ant import Ant
+from models.environment import Environment
 
 app = Flask(__name__)
 

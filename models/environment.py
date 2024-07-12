@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from nest import Nest
+from models.nest import Nest
 
 class Environment:
     def __init__(self, width, height, num_of_food):

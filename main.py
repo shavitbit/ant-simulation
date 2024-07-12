@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.patches as mpatches
-from ant import Ant
-from environment import Environment
+from models.ant import Ant
+from models.environment import Environment
 
 num_ants = 20
 width = 100
@@ -14,7 +14,7 @@ num_steps = 400
 environment = Environment(width=width, height=height, num_of_food=num_of_food)
 ants = [Ant(environment) for _ in range(num_ants)]
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(12, 12))
 ax.set_xlim(0, environment.width)
 ax.set_ylim(0, environment.height)
 ax.set_title('Ant Simulator')
@@ -27,6 +27,7 @@ food_scat = ax.scatter([], [], c='green', s=10)
 pheromone_im = ax.imshow(environment.pheromone_grid, cmap='gray', vmin=0, vmax=100, alpha=0.6, extent=[0, environment.width, 0, environment.height], origin='lower')
 frame_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
 nest_scat = ax.scatter([environment.localnest.x], [environment.localnest.y], c='blue', s=50, marker='s')
+nest_food_text = ax.text(0.02, 0.90, "", transform=ax.transAxes)
 
 def format_coord(x, y):
     col = int(x)
@@ -64,7 +65,11 @@ def update(frame):
     pheromone_im.set_array(environment.pheromone_grid)
 
     frame_text.set_text(f'Frame: {frame}')
-    return scat, food_scat, pheromone_im, frame_text, nest_scat
+    frame_text.set_color('white')
+    nest_food_text.set_text(f'Nest food count: {environment.localnest.food_count}')
+    nest_food_text.set_color('white')
+
+    return scat, food_scat, pheromone_im, frame_text, nest_scat,nest_food_text
 
 ant_patch = mpatches.Patch(color='red', label='Ants')
 food_patch = mpatches.Patch(color='green', label='Food')
@@ -73,5 +78,11 @@ pheromone_patch = mpatches.Patch(color='gray', label='Pheromone')
 
 ax.legend(handles=[ant_patch, food_patch, nest_patch, pheromone_patch], loc='upper left', bbox_to_anchor=(1, 1))
 
+def close_fig(event):
+    print("close event")
+    plt.close('all')
+
 ani = animation.FuncAnimation(fig, update, frames=range(num_steps), interval=100, blit=True, repeat=True)
+ani.event_source.stop() 
+fig.canvas.mpl_connect('close_event', close_fig)
 plt.show()
