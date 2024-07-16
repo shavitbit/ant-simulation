@@ -29,10 +29,10 @@ ax_decrement_pheromone_if_overlap_value = plt.axes([0.25, 0.3, 0.65, 0.03])
 slider_decrement_pheromone_if_overlap_value = Slider(ax_decrement_pheromone_if_overlap_value, 'Decrement pheromone if overlap', 0, 100, valinit=decrement_pheromone_if_overlap_value)
 
 ax_pheromone_decay = plt.axes([0.25, 0.25, 0.65, 0.03])
-slider_pheromone_decay = Slider(ax_pheromone_decay, 'Pheromone Decay', 0.01, 10.0, valinit=pheromone_decay_factor)
+slider_pheromone_decay = Slider(ax_pheromone_decay, 'Pheromone Decay', 0.0, 150, valinit=pheromone_decay_factor, valstep=0.5)
 
 ax_drop_pheromone = plt.axes([0.25, 0.2, 0.65, 0.03])
-slider_drop_pheromone = Slider(ax_drop_pheromone, 'Drop Pheromone', 0.1, 100.0, valinit=drop_pheromone_value)
+slider_drop_pheromone = Slider(ax_drop_pheromone, 'Drop Pheromone', 0.5, 100.0, valinit=drop_pheromone_value, valstep=0.5)
 
 ax_worker_scout_ratio = plt.axes([0.25, 0.15, 0.65, 0.03])
 slider_worker_scout_ratio = Slider(ax_worker_scout_ratio, 'Worker/Scout Ratio', 1, 30, valinit=worker_to_scout_ratio, valstep=1)
@@ -46,7 +46,7 @@ help_button = Button(help_ax, 'Help')
 
 # Function to show help dialog
 def show_help(event):
-    plt.figure(figsize=(13,8))
+    plt.figure("Ant Simulation Help",figsize=(13,8))
     plt.text(0.01, 0.1, "'Ant simulation' simulates the behavior of ants to find the fastest way\n\
 to collect food using a combination 4 parameters and in 1600 steps.\n\n\
 Decrement Pheromone If Overlap:\nThe function is designed to manage the pheromone levels in the simulation environment.\n\
@@ -91,23 +91,19 @@ def initialize_simulation():
     
     # Update plot settings
     ax.clear()
-
     slider_decrement_pheromone_if_overlap_value.active = False
+    #slider_decrement_pheromone_if_overlap_value.ax.set_visible(False)
+    start_button.ax.set_visible(False)
     slider_pheromone_decay.active = False
     slider_drop_pheromone.active = False
     slider_worker_scout_ratio.active = False
     start_button.set_active(False)
     plt.axes([0.25, 0.25, 0.65, 0.03]).set_visible(False)
-    #stop_button = Button(start_ax, 'Stop')
-    #stop_button.on_clicked(stop_simulation)
-    #start_button.label.set_text('Stop')
-    #start_button = Button(start_ax, 'Stop')
-    #start_button.on_clicked(stop_simulation)
-    def stop_simulation():
-        exit()
     ax.set_xlim(0, environment.width)
     ax.set_ylim(0, environment.height)
-    ax.set_title('Ant Simulator')
+    ax.set_title("Simulation ID: " + str(float(slider_decrement_pheromone_if_overlap_value.val))+"-" \
+                 + str(float(slider_pheromone_decay.val))+"-" + str(float(slider_drop_pheromone.val))+"-"\
+                    + str(float(slider_worker_scout_ratio.val)) )
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
     fig.canvas.manager.set_window_title('Ant Simulator')

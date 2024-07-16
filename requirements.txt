@@ -1,3 +1,4 @@
 matplotlib
 numpy
 PyQt6
+requests
