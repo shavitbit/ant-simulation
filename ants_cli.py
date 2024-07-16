@@ -3,7 +3,7 @@ import requests
 from models.scout import Scout
 from models.worker import Worker
 from models.environment import Environment
-
+#ID Example: 20.0-1.5-1.0-5.0 -->257 food
 def run_simulation(rounds, sim_id, server_url):
     """
     Run the ant simulation for a specified number of rounds and send the results to a web server.
