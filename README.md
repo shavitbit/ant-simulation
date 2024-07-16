@@ -17,6 +17,8 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - matplotlib
 - requests
 - argparse
+- Docker - for running the CLI alongside the web server
+- Kubernetes/Minikube - for running the web server and extensive parallel simulation jobs in Kubernetes
 
 ## Simulation Parameters
 'Ant simulation' simulates the behavior of ants to find the fastest way to collect food using a combination 4 parameters and in 1600 steps.
