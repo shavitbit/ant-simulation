@@ -1,4 +1,4 @@
-# Ants Simulation
+# Ant Simulation (still in development)
 
 Ants Simulation is a Python-based project that simulates the behavior of ants to find the fastest way to collect food using a combination of parameters. The simulation can be run both with a graphical user interface (GUI) using Matplotlib and via a command-line interface (CLI).
 ## Simulation Objects
