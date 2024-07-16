@@ -1,6 +1,7 @@
 # Ants Simulation
 
 Ants Simulation is a Python-based project that simulates the behavior of ants to find the fastest way to collect food using a combination of parameters. The simulation can be run both with a graphical user interface (GUI) using Matplotlib and via a command-line interface (CLI).
+## Simulation Objects
 
 ## Features
 
@@ -72,7 +73,9 @@ Customize the slides before starting the simulation
    python ant_cli.py run --rounds <number_of_rounds> --id <simulation_id> -c <server_url>
    # For example:
    python cli.py run --rounds 3 --id 20.0-142.0-1.0-5.0 -c "http://192.168.1.100:5000"
-   # Run list command to get statistics on simulation id
+   # Meaning run 3 times, simulation id 20.0-142.0-1.0-5.0 and send results to server http://192.168.1.100:5000
+   
+   # Run list command to get statistics on simulation id from the server.
    python ant_cli.py list --id <simulation_id> -c <server_url>
    ```
 ## Installation Docker Mode
