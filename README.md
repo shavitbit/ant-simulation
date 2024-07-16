@@ -20,8 +20,8 @@ Ants Simulation is a Python-based project that simulates the behavior of ants to
 ## Simulation Parameters
 ### GUI
 Customize the slides before starting the simulation
-<!-- ![simulation settings Screenshot](/media/ants-settings.png) -->
-<img src="/media/ants-settings.png" alt="Simulation Settings Screenshot" width="400" width="200">
+![simulation settings Screenshot](/media/ants-settings.png) 
+<!-- <img src="/media/ants-settings.png" alt="Simulation Settings Screenshot" width="400" width="200">-->
 ### CLI
    The simulation_id parameter format is decay-overlap-pdecay-drop-ratio in float variable for example 20.0-142.0-1.0-5.0 , where:
    * decay: Pheromone decay value.
