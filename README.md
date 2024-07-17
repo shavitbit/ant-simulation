@@ -2,7 +2,36 @@
 
 Ant Simulation is a Python-based project that simulates the behavior of ants to find the fastest way to collect food using a combination of parameters. The simulation can be run with a graphical user interface (GUI) using Matplotlib, command-line interface (CLI) using argparse or application programming interface (API) using Flask.
 ## Simulation Objects
+### Environment
+ Environment class represents the environment in which the ants are moving. It contains the following attributes:
+  - 2D array that represents the environment.
+  - 2D array that represents pheromone trails.
+  - Food sources that are randomly placed in the environment, with each food source having 50 pieces of food.
+### Ant
+The Ant class is an abstract class that represents an ant (you can create new scout ants or worker ants that inherit from the Ant class). It contains the following attributes:
+ - Sense Food Function - If the ant is standing on a food source, it will collect the food and move to the nest.
+ - Sense Pheromone Function - If the ant is standing on a pheromone trail, it will follow the trail. Scouts can sense pheromone within a 5px radius, and workers within a 10px radius.
+ - Drop Pheromone Function - If the ant has food, it will calculate the distance to the nest and drop more pheromone near the food source, decreasing the pheromone amount as it gets closer to the nest.
+ - Decrement Pheromone If Overlap Function - When too many ants are in the same place, it reduces the pheromone concentration at that spot.
+ - Apply Move Function - Checks if the ant can move to the next cell (i.e., there is no wall or obstacle), and if the ant can move, it will move to the next cell.
+ - Go Nest - When the ant finds food, it will go directly to the nest.
+ - Get Sensing Radius - Retrieves the sensing radius of the ant.
+#### Scout Ant
+A scout ant moves randomly through the environment, cell by cell, searching for pheromone trails or food sources. If it finds food, it will deposit pheromone and return to its nest.
+ - Move - If carrying food, it drops pheromone and goes to the nest; otherwise, it makes a random move or follows a pheromone trail.
+ - Random or Pheromone Move - Decides if the ant should move to the next cell randomly or follow a pheromone trail.
+ - Random Move - Randomly chooses between moving up, down, left, or right
 
+#### Worker Ant
+A worker ant stays at the nest and, when a scout ant returns, follows the trail to collect the food. The worker ant has a better sensing radius and is always ready at the nest to follow pheromone trails.
+ - Move - If carrying food, it drops pheromone and goes to the nest; otherwise, it follows the nest pheromone trail.
+ - Home or Pheromone Move - Decides if the ant should return to the nest or follow a pheromone trail.
+ - Sensing Radius - Defines the range within which the ant can detect pheromone trails and food.
+
+#### Nest class
+ The Nest class represents the nest of the ants. It contains the following attributes:
+ - X and Y coordinates of the nest.
+ - Food counter
 ## Features
 
 - Visual simulation of ant behavior using Matplotlib.
