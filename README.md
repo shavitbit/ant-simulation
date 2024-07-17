@@ -1,6 +1,23 @@
 # Ant Simulation (still in development)
 
 Ant Simulation is a Python-based project that simulates the behavior of ants to find the fastest way to collect food using a combination of parameters. The simulation can be run with a graphical user interface (GUI) using Matplotlib, command-line interface (CLI) using argparse or application programming interface (API) using Flask.
+## Features
+
+- Visual simulation of ant behavior using Matplotlib.
+- Adjustable parameters via sliders in the GUI.
+- CLI mode for running simulations without visual effects.
+- Send simulation results to a web server.
+
+## Requirements
+
+- Python 3.6+
+- numpy
+- matplotlib
+- requests
+- argparse
+- Docker - for running the CLI alongside the web server
+- Kubernetes/Minikube - for running the web server and extensive parallel simulation jobs in Kubernetes
+
 ## Simulation Objects
 ### Environment
  Environment class represents the environment in which the ants are moving. It contains the following attributes:
@@ -32,22 +49,7 @@ A worker ant stays at the nest and, when a scout ant returns, follows the trail 
  The Nest class represents the nest of the ants. It contains the following attributes:
  - X and Y coordinates of the nest.
  - Food counter
-## Features
 
-- Visual simulation of ant behavior using Matplotlib.
-- Adjustable parameters via sliders in the GUI.
-- CLI mode for running simulations without visual effects.
-- Send simulation results to a web server.
-
-## Requirements
-
-- Python 3.6+
-- numpy
-- matplotlib
-- requests
-- argparse
-- Docker - for running the CLI alongside the web server
-- Kubernetes/Minikube - for running the web server and extensive parallel simulation jobs in Kubernetes
 
 ## Simulation Parameters
 'Ant simulation' simulates the behavior of ants to find the fastest way to collect food using a combination 4 parameters and in 1600 steps.
