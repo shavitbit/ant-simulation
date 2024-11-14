@@ -1,0 +1,16 @@
+FROM mysql:8.0
+
+ENV MYSQL_ROOT_PASSWORD=rootoren
+ENV MYSQL_DATABASE=ant_db
+ENV MYSQL_USER=oren
+ENV MYSQL_PASSWORD=oren
+
+COPY init.sql /docker-entrypoint-initdb.d/
+EXPOSE 3306
+CMD ["mysqld"]
+
+# docker build -f <filepath>\dockerfile . -t <image_name>:<tag> examle docker build . -t antsmysql:0.0.2 
+# docker run -p 3306:3306 <image_name>:<tag>
+# docker exec -it  <container_id> /bin/sh
+# mysql ant_db -u oren -p
+

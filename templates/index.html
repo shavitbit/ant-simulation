@@ -3,54 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ant Simulation</title>
+    <title>Simulation Summary</title>
     <style>
-        #canvas {
-            border: 1px solid black;
+        /* Add some basic styles for the table */
+        table {
+            width: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Position the ant image in the top-left corner */
+        #antImage {
+            position: fixed;
+            top: 10px;
+            right: 0;
+            width: 60px;  /* Adjust the size of the image */
+            height: 60px;  /* Adjust the size of the image */
         }
     </style>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Ant Simulation</h1>
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <!-- Add an image of an ant in the top-left corner -->
+    <img id="antImage" src="/static/ant.png" alt="Ant Image">
+
+    <h2>Simulation Summary</h2>
+    <table id="simTable">
+        <thead>
+            <tr>
+                <th>Simulation Name</th>
+                <th>Run Count</th>
+                <th>Total Food Collected</th>
+                <th>Average Food Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Canvas for the bar chart -->
+    <h3>Average Food Collected by Simulation (Limited to First 15)</h3>
+    <canvas id="simBarChart" width="600" height="400"></canvas>
+
     <script>
-        async function fetchSimulationData() {
-            const response = await fetch('/simulate');
-            const data = await response.json();
-            return data;
+        // Function to fetch data from the API, populate the table, and display the chart
+        async function fetchAndDisplaySimData() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/api/v1/get_sim_summary");
+                const data = await response.json();
+
+                if (data.status === "success" && data.data.length > 0) {
+                    const tableBody = document.getElementById("simTable").getElementsByTagName("tbody")[0];
+                    
+                    // Clear any existing rows in the table body
+                    tableBody.innerHTML = "";
+
+                    // Prepare data for the bar chart
+                    const simNames = [];
+                    const avgFoodCollected = [];
+
+                    // Sort data by average_food_collected in descending order
+                    const sortedData = data.data.sort((a, b) => b.average_food_collected - a.average_food_collected);
+
+                    // Limit the results to the top 50 simulations for the table
+                    const limitedData = sortedData.slice(0, 50);
+
+                    // Loop through the limited and sorted data to populate the table and chart
+                    limitedData.forEach(row => {
+                        const { sim_name, run_count, total_food_collected, average_food_collected } = row;
+
+                        // Add row data to table
+                        const newRow = tableBody.insertRow();
+                        newRow.insertCell(0).textContent = sim_name;
+                        newRow.insertCell(1).textContent = run_count;
+                        newRow.insertCell(2).textContent = total_food_collected;
+                        newRow.insertCell(3).textContent = average_food_collected;
+
+                        // Prepare data for the chart (limit to first 15)
+                        simNames.push(sim_name);
+                        avgFoodCollected.push(average_food_collected);
+                    });
+
+                    // Create the bar chart (limit to first 15)
+                    const ctx = document.getElementById('simBarChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: simNames.slice(0, 15), // Limit chart data to first 15
+                            datasets: [{
+                                label: 'Average Food Collected',
+                                data: avgFoodCollected.slice(0, 15), // Limit chart data to first 15
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Average Food Collected'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Simulation Name'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error("No data available or error in response.");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
 
-        function drawSimulation(data) {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            data.ant_positions.forEach(([x, y]) => {
-                ctx.fillStyle = 'red';
-                ctx.fillRect(x * 5, y * 5, 5, 5);
-            });
-
-            data.food_positions.forEach(([x, y]) => {
-                ctx.fillStyle = 'green';
-                ctx.fillRect(x * 5, y * 5, 5, 5);
-            });
-
-            data.pheromone_grid.forEach((row, i) => {
-                row.forEach((pheromone, j) => {
-                    if (pheromone > 0) {
-                        ctx.fillStyle = `rgba(0, 0, 0, ${pheromone / 255})`;
-                        ctx.fillRect(i * 5, j * 5, 5, 5);
-                    }
-                });
-            });
-        }
-
-        async function runSimulation() {
-            const data = await fetchSimulationData();
-            drawSimulation(data);
-        }
-
-        runSimulation();
+        // Call the function to fetch and display data when the page loads
+        document.addEventListener("DOMContentLoaded", fetchAndDisplaySimData);
     </script>
 </body>
 </html>

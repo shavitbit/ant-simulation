@@ -2,3 +2,5 @@ matplotlib
 numpy
 PyQt6
 requests
+pymysql
+flask-restx
