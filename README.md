@@ -7,6 +7,7 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - Adjustable parameters via sliders in the GUI.
 - CLI mode for running simulations without visual effects.
 - Send simulation results to a web server.
+- Webpage with statistics result inclusing bar charts, API, and a Swagger page (/home, /swagger)
 
 ## Requirements
 
