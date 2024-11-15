@@ -144,3 +144,6 @@ Customize the slides before starting the simulation
 ### Diagrams
 #### GUI and class structure 
 ![Web server and class structure](/media/Ant_diagram.drawio.png)
+
+#### Web page
+![Web server and class structure](/media/web.png)
