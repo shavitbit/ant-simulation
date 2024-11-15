@@ -3,7 +3,7 @@ import requests
 from models.scout import Scout
 from models.worker import Worker
 from models.environment import Environment
-#ID Example: 20.0-1.5-1.0-5.0 -->257 food
+#ID Example: 20.0-1.5-1.0-5.0
 def run_simulation(rounds, sim_id, server_url):
     """
     Run the ant simulation for a specified number of rounds and send the results to a web server.
@@ -54,14 +54,14 @@ def run_simulation(rounds, sim_id, server_url):
         results.append(environment.localnest.food_count)
 
     # Calculate average food collected
-    average_food_collected = sum(results) / rounds
-    print(f"Average food collected: {average_food_collected}")
+    total_food_collected = sum(results)  
+    print(f"Average food collected: {total_food_collected / rounds}")
     # Send results to the server
-    #response = requests.post(server_url, json={"sim_id": sim_id, "average_food_collected": average_food_collected})
-    #if response.status_code == 200:
-    #    print(f"Results successfully sent to {server_url}")
-    #else:
-    #    print(f"Failed to send results to {server_url}")
+    response = requests.post(server_url, json={"id": sim_id, "sim_result": total_food_collected, 'runs': rounds})
+    if response.status_code == 200:
+        print(f"Results successfully sent to {server_url}")
+    else:
+        print(f"Failed to send results to {server_url}")
 
 def main():
     parser = argparse.ArgumentParser(description="Ant Simulation CLI")

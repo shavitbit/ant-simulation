@@ -7,7 +7,7 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - Adjustable parameters via sliders in the GUI.
 - CLI mode for running simulations without visual effects.
 - Send simulation results to a web server.
-- Webpage with statistics result inclusing bar charts, API, and a Swagger page (/home, /swagger)
+- Webpage with statistics result including bar charts, API, and a Swagger page (/home, /swagger)
 
 ## Requirements
 
@@ -113,7 +113,32 @@ Customize the slides before starting the simulation
    python ant_cli.py list --id <simulation_id> -c <server_url>
    ```
 ## Installation Docker Mode
+   Build mysql image from the dockerfile in mysql folder, go to root folder and build the dockerfile in flask folder and create a network.
+   ```sh
+   cd mysql
+   docker build -f .\dockerfile . -t antmysql:0.0.3
+   cd ..
+   docker build -t flaskapiant:0.0.1 -f flask\dockerfile .
+  docker network create app-network 
+```
+   Run the mysql and flask containers
+   ```sh
+   docker run --name mysql-container --network app-network \
+    -e MYSQL_ROOT_PASSWORD=rootoren \
+    -e MYSQL_DATABASE=ant_db \
+    -e MYSQL_USER=oren \
+    -e MYSQL_PASSWORD=oren \
+    -p 3306:3306 \
+    -d antmysql:0.0.3
 
+   docker run --name flask-container --network app-network \
+       -e MYSQL_HOST=mysql-container \
+       -e MYSQL_USER=oren \
+       -e MYSQL_PASSWORD=oren \
+       -e MYSQL_DB=ant_db \
+       -p 5000:5000 \
+       -d flaskapiant:0.0.1
+   ```
 ## Installation Kubernetes Mode
 
 ### Diagrams

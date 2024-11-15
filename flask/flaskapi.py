@@ -2,13 +2,19 @@ from flask import Flask, jsonify, request, render_template
 import logging, sys
 import mysql.connector
 from flask_restx import Api, Resource,Namespace
-
+import os
 app = Flask(__name__)
 api = Api(app, doc='/swagger')
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'oren'
 app.config['MYSQL_PASSWORD'] = 'oren'
 app.config['MYSQL_DB'] = 'ant_db'
+
+
+mysql_host = os.getenv("MYSQL_HOST")
+mysql_user = os.getenv("MYSQL_USER")
+mysql_password = os.getenv("MYSQL_PASSWORD")
+mysql_db = os.getenv("MYSQL_DB")
 
 ns = Namespace("api/v1")
 api.add_namespace(ns)
@@ -17,10 +23,10 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 def get_db_connection():
     connection = mysql.connector.connect(
-        host=app.config['MYSQL_HOST'],
-        user=app.config['MYSQL_USER'],
-        password=app.config['MYSQL_PASSWORD'],
-        database=app.config['MYSQL_DB']
+        host=mysql_host,
+        user=mysql_user,
+        password=mysql_password,
+        database=mysql_db
     )
     return connection
 
