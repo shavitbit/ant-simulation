@@ -113,15 +113,19 @@ Customize the slides before starting the simulation
    python ant_cli.py list --id <simulation_id> -c <server_url>
    ```
 ## Installation Docker Mode
-   Build mysql image from the dockerfile in mysql folder, go to root folder and build the dockerfile in flask folder and create a network.
+   1. Build mysql image from the dockerfile in mysql folder
+   2. Go to root folder and build the dockerfile in flask folder
+   3. Build the ant_cli dockerfile
+   4. create a network.
    ```sh
    cd mysql
    docker build -f .\dockerfile . -t antmysql:0.0.3
    cd ..
    docker build -t flaskapiant:0.0.1 -f flask\dockerfile .
-  docker network create app-network 
+   docker build -t antcli:0.0.1 -f .\ant_cli\dockerfile .
+   docker network create app-network 
 ```
-   Run the mysql and flask containers
+   Run the mysql, flask and cli containers
    ```sh
    docker run --name mysql-container --network app-network \
     -e MYSQL_ROOT_PASSWORD=rootoren \
@@ -138,6 +142,9 @@ Customize the slides before starting the simulation
        -e MYSQL_DB=ant_db \
        -p 5000:5000 \
        -d flaskapiant:0.0.1
+   
+   # To run the ant CLI you will have to add an argument inside the run command for example:
+   docker run --name cli-container --network app-network -d antcli:0.0.1 run --round 10 --id "20.0-1.5-1.0-5.0" --connect "http://flask-container:5000/api/v1/send_sim_result"
    ```
 ## Installation Kubernetes Mode
 
@@ -145,7 +152,7 @@ Customize the slides before starting the simulation
 #### GUI and class structure 
 ![Web server and class structure](/media/Ant_diagram.drawio.png)
 
-#### Web Page (<url>/home)
+#### Web Page (url/home)
 ![Web server and class structure](/media/web.png)
-#### Swagger(<url>/swagger)
+#### Swagger(<url/swagger)
 ![Web server and class structure](/media/swagger.png)
