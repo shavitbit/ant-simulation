@@ -145,7 +145,7 @@ Customize the slides before starting the simulation
 #### GUI and class structure 
 ![Web server and class structure](/media/Ant_diagram.drawio.png)
 
-#### Web page
+#### Web Page (<url>/home)
 ![Web server and class structure](/media/web.png)
-#### Swagger
+#### Swagger(<url>/swagger)
 ![Web server and class structure](/media/swagger.png)
