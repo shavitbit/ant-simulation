@@ -147,3 +147,5 @@ Customize the slides before starting the simulation
 
 #### Web page
 ![Web server and class structure](/media/web.png)
+#### Swagger
+![Web server and class structure](/media/swagger.png)
