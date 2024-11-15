@@ -144,7 +144,8 @@ Customize the slides before starting the simulation
        -d flaskapiant:0.0.1
    
    # To run the ant CLI you will have to add an argument inside the run command for example:
-   docker run --name cli-container --network app-network -d antcli:0.0.1 run --round 10 --id "20.0-1.5-1.0-5.0" --connect "http://flask-container:5000/api/v1/send_sim_result"
+   docker run --name cli-container --network app-network -d antcli:0.0.1 \
+   run --round 10 --id "20.0-1.5-1.0-5.0" --connect "http://flask-container:5000/api/v1/send_sim_result"
    ```
 ## Installation Kubernetes Mode
 
