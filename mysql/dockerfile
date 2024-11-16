@@ -1,4 +1,4 @@
-FROM mysql:8.0
+FROM mysql:8.0.44
 
 ENV MYSQL_ROOT_PASSWORD=rootoren
 ENV MYSQL_DATABASE=ant_db

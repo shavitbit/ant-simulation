@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ant-cli-job
+spec:
+  complitions: 10
+  parallelism: 2
+  template:
+    spec:
+      containers:
+      - name: ant-cli
+        image: {{ .Values.images.flask}}
+        command: ["run", "--round 10", "--id" ,"20.0-1.5-1.0-5.0", "--connect", "http://flask-web-svc:5000/api/v1/send_sim_result"] #trigger the app with arguments
+      restartPolicy: Never
+  backoffLimit: 4

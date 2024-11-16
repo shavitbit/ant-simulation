@@ -14,7 +14,7 @@ app.config['MYSQL_DB'] = 'ant_db'
 mysql_host = os.getenv("MYSQL_HOST")
 mysql_user = os.getenv("MYSQL_USER")
 mysql_password = os.getenv("MYSQL_PASSWORD")
-mysql_db = os.getenv("MYSQL_DB")
+mysql_db = os.getenv("MYSQL_DATABASE") #MYSQL_DATABASE
 
 ns = Namespace("api/v1")
 api.add_namespace(ns)
