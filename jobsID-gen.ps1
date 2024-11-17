@@ -12,7 +12,6 @@ function Gen-ID {
             (Get-Random -Minimum 0.1 -Maximum 100),
             (Get-Random -Minimum 0 -Maximum 30)
 
-        # Output the ID wrapped in double quotes
         $id += '"'+$antid+'" ' 
     }
         write-host $id
