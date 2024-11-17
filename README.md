@@ -170,11 +170,13 @@ To deploy in Kubernetes mode, install the Helm chart from the antchart folder. T
    * MySQL is exposed internally using a ClusterIP.
 * Persistent Volume: Allocates 1GB of persistent storage for MySQL data.
 <br/>
-After deploying the chart, you can trigger the provided CLI Bash script. This script:
 
+After deploying the chart, you can trigger the provided CLI Bash script. <br/>
+This script:
 1. Creates Kubernetes jobs with the antcli to load simulations.
 2. Retrieves the logs.
 3. Deletes the Kubernetes jobs upon completion.
+4. Not mandatory, but for your convenience, use the jobID-gen.ps1 to generate IDs and insert them into the Bash script.
 ```sh
 helm package .
 helm install ant-simulation . --set db.username=oren --set db.password=root --set db.rootpassword=rootoren
