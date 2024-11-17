@@ -2,13 +2,14 @@
 
 Ant Simulation is a Python-based project that simulates the behavior of ants to find the fastest way to collect food using a combination of parameters. The simulation can be run with a graphical user interface (GUI) using Matplotlib, command-line interface (CLI) using argparse or application programming interface (API) using Flask.
 
-## Table of Contents
+## TOC
 - [Features](#Features)
 - [Requirements](#Requirements)
 - [Objects](#Objects)
 - [Parameters](#Parameters)
-- [Installation GUI Mode](#Installation)
-- [License](#license)
+- [Installation GUI Mode](#installation-gui-mode)
+- [Installation Docker Mode](#Installation-Docker-Mode)
+- [Installation Kubernetes Mode](Installation-Kubernetes-Mode)
 
 ## Features
 
