@@ -1,3 +1,5 @@
+# use this function to generate ids. To generate 5 ids:
+# .\jobsID-gen.ps1 gen-id 5
 function Gen-ID {
     param (
         [int]$numOfId
