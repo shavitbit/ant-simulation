@@ -119,9 +119,9 @@ Customize the slides before starting the simulation
    4. create a network.
    ```sh
    cd mysql
-   docker build -f .\dockerfile . -t antmysql:0.0.3
+   docker build -f .\dockerfile . -t antmysql:0.0.1
    cd ..
-   docker build -t flaskapiant:0.0.1 -f flask\dockerfile .
+   docker build -t flaskapiant:0.0.4 -f flask\dockerfile .
    docker build -t antcli:0.0.1 -f .\ant_cli\dockerfile .
    docker network create app-network 
 ```
@@ -133,7 +133,7 @@ Customize the slides before starting the simulation
     -e MYSQL_USER=oren \
     -e MYSQL_PASSWORD=oren \
     -p 3306:3306 \
-    -d antmysql:0.0.3
+    -d antmysql:0.0.1
 
    docker run --name flask-container --network app-network \
        -e MYSQL_HOST=mysql-container \
@@ -141,7 +141,7 @@ Customize the slides before starting the simulation
        -e MYSQL_PASSWORD=oren \
        -e MYSQL_DB=ant_db \
        -p 5000:5000 \
-       -d flaskapiant:0.0.1
+       -d flaskapiant:0.0.4
    
    # To run the ant CLI you will have to add an argument inside the run command for example:
    docker run --name cli-container --network app-network -d antcli:0.0.1 \
