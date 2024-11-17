@@ -149,7 +149,6 @@ Customize the slides before starting the simulation
    ```
 ## Installation Kubernetes Mode
 To deploy in Kubernetes mode, install the Helm chart from the antchart folder. The chart includes:
-it contain:
 * Deployments
    * A Flask web application with two instances.
    * A MySQL database configured as a StatefulSet.
