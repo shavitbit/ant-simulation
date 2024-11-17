@@ -1,4 +1,4 @@
-function id-gen {
+function Gen-ID {
     param (
         [int]$numOfId
     )
@@ -17,6 +17,6 @@ function id-gen {
 }
 
 # Check if the script is called with arguments
-if ($args.Count -eq 2 -and $args[0] -eq "id-gen") {
-    ant -numOfId $args[1]
+if ($args.Count -eq 2 -and $args[0] -eq "Gen-ID") {
+    Gen-ID -numOfId $args[1]
 }
