@@ -4,9 +4,8 @@ app:
   flaskreplicaCount: 2
 
 images:
-  flask: philipsinfo/flaskapiant:0.0.3
+  flask: philipsinfo/flaskapiant:0.0.4
   mysql: philipsinfo/antmysql:0.0.1
-  cli: philipsinfo/antcli:0.0.1
 #Database values.
 db:
   mysqlreplicaCount: 1

@@ -148,6 +148,31 @@ Customize the slides before starting the simulation
    run --round 10 --id "20.0-1.5-1.0-5.0" --connect "http://flask-container:5000/api/v1/send_sim_result"
    ```
 ## Installation Kubernetes Mode
+To deploy in Kubernetes mode, install the Helm chart from the antchart folder. The chart includes:
+it contain:
+* Deployments
+   * A Flask web application with two instances.
+   * A MySQL database configured as a StatefulSet.
+* Secrets: Used to securely store MySQL credentials.
+* ConfigMap: Passes environment variables to the Flask application.
+* Horizontal Pod Autoscaler (HPA): Automatically scales the Flask application based on CPU utilization.
+* Services:
+   * The Flask application is exposed using a LoadBalancer, enabling external access.
+   * MySQL is exposed internally using a ClusterIP.
+* Persistent Volume: Allocates 1GB of persistent storage for MySQL data.
+After deploying the chart, you can trigger the provided CLI Bash script. This script:
+1. Creates Kubernetes jobs with the antcli to load simulations.
+2. Retrieves the logs.
+3. Deletes the Kubernetes jobs upon completion.
+```sh
+helm package .
+helm install ant-simulation . --set db.username=oren --set db.password=root --set db.rootpassword=rootoren
+cd ..
+chmod +x ./job.bash 
+./job.bash 
+```
+
+
 
 ### Diagrams
 #### GUI and class structure 

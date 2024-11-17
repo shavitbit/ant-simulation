@@ -40,12 +40,12 @@ def send_sim_result(id, sim_result, runs):
     result = cursor.fetchone()
     if result is None:
         insert_query = "INSERT INTO ant_table (sim_name, run_count, total_food_collected) VALUES (%s, %s, %s)"
-        cursor.execute(insert_query, (id, runs, sim_result * runs))
+        cursor.execute(insert_query, (id, runs, sim_result))
         connection.commit()  # Commit the transaction
         print(f"Row with sim_name = {sim_result} created.")      
     else:
          new_run_count = result['run_count'] + runs
-         new_total_food_collected = result['total_food_collected'] + (sim_result * runs)
+         new_total_food_collected = result['total_food_collected'] + (sim_result)
         # Update the row with the new values
          update_query = """
          UPDATE ant_table 
@@ -78,7 +78,7 @@ def get_all_sim_results():
             for row in results:
                 # Calculate the average if run_count is not zero
                 if row["run_count"] > 0:
-                    row["average_food_collected"] = row["total_food_collected"] / row["run_count"]
+                    row["average_food_collected"] = row["total_food_collected"] / row["run_count"] 
                 else:
                     row["average_food_collected"] = None  # Or 0, depending on your preference
 
