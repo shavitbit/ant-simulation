@@ -159,6 +159,7 @@ To deploy in Kubernetes mode, install the Helm chart from the antchart folder. T
    * The Flask application is exposed using a LoadBalancer, enabling external access.
    * MySQL is exposed internally using a ClusterIP.
 * Persistent Volume: Allocates 1GB of persistent storage for MySQL data.
+<br/>
 After deploying the chart, you can trigger the provided CLI Bash script. This script:
 1. Creates Kubernetes jobs with the antcli to load simulations.
 2. Retrieves the logs.
