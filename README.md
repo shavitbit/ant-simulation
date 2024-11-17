@@ -9,7 +9,7 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - [Parameters](#Parameters)
 - [Installation GUI Mode](#installation-gui-mode)
 - [Installation Docker Mode](#Installation-Docker-Mode)
-- [Installation Kubernetes Mode](Installation-Kubernetes-Mode)
+- [Installation Kubernetes Mode](#Installation-Kubernetes-Mode)
 
 ## Features
 
