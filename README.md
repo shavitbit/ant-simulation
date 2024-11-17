@@ -5,9 +5,9 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 ## Table of Contents
 - [Features](#Features)
 - [Requirements](#Requirements)
-- [Objects](##Objects)
-- [Usage](#usage)
-- [Contributing](#contributing)
+- [Objects](#Objects)
+- [Parameters](#Parameters)
+- [Installation GUI Mode](#Installation)
 - [License](#license)
 
 ## Features
