@@ -25,9 +25,21 @@ spec:
           requests:
             cpu: "100m"
             memory: "256Mi"
-           
         ports:
         - containerPort: 5000
+
+        readinessProb:
+          httpGet:
+            path: {{.Values.health.readinessProbe.httpGet.path }}
+            port: {{.Values.health.readinessProbe.httpGet.port }}
+          initialDelaySeconds: {{.Values.health.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{.Values.health.readinessProbe.periodSeconds }}
+        livenessProbe:
+          httpGet:
+            path: {{.Values.health.livenessProbe.httpGet.path }}
+            port: {{.Values.health.livenessProbe.httpGet.port }}
+          initialDelaySeconds: {{.Values.health.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{.Values.health.livenessProbe.periodSeconds }}
         env:
         - name: MYSQL_USER # Setting USER username on mysql From a 'Secret'
           valueFrom:

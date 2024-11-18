@@ -160,7 +160,7 @@ Customize the slides before starting the simulation
 ## Installation Kubernetes Mode
 To deploy in Kubernetes mode, install the Helm chart from the antchart folder. The chart includes:
 * Deployments
-   * A Flask web application with two instances.
+   * A Flask web application with two instances readinessProb and livenessProbe.
    * A MySQL database configured as a StatefulSet.
 * Secrets: Used to securely store MySQL credentials.
 * ConfigMap: Passes environment variables to the Flask application.
@@ -174,15 +174,16 @@ To deploy in Kubernetes mode, install the Helm chart from the antchart folder. T
 After deploying the chart, you can trigger the provided CLI Bash script. <br/>
 This script:
 1. Creates Kubernetes jobs with the antcli to load simulations.
-2. Retrieves the logs.
+2. Retrieves the logs form the job container and pass them to job_logs.log file.
 3. Deletes the Kubernetes jobs upon completion.
 4. Not mandatory, but for your convenience, use the jobID-gen.ps1 to generate IDs and insert them into the Bash script.
 ```sh
+cd antchart
 helm package .
 helm install ant-simulation . --set db.username=oren --set db.password=root --set db.rootpassword=rootoren
 cd ..
-chmod +x ./job.bash 
-./job.bash 
+chmod +x ./job.sh 
+./job.sh 
 ```
 
 

@@ -176,8 +176,16 @@ class get_sim_result(Resource):
     def get(self,sim_id):       
         return(get_sim_result_by_id(sim_id))
 
+# add health check for readinessProbe and livenessProbe
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "healthy"}), 200
+
 @app.route('/home')
 def index():
     return render_template('index.html')
+
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
