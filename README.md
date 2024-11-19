@@ -198,3 +198,5 @@ chmod +x ./job.sh
 ![Web server and class structure](/media/web.png)
 #### Swagger(url/swagger)
 ![Web server and class structure](/media/swagger.png)
+#### ArgoCD
+![Web server and class structure](/media/argocd.png)
