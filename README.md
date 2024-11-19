@@ -10,7 +10,8 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - [Installation GUI Mode](#installation-gui-mode)
 - [Installation Docker Mode](#Installation-Docker-Mode)
 - [Installation Kubernetes Mode](#Installation-Kubernetes-Mode)
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/CcP4yBOOdWk/0.jpg)](https://youtu.be/CcP4yBOOdWk)
+- [YouTube Video Installing in Kubernetes](#Video-(YouTube)-Kubernetes-Mode)
+
 ## Features
 
 - Visual simulation of ant behavior using Matplotlib.
@@ -185,7 +186,8 @@ cd ..
 chmod +x ./job.sh 
 ./job.sh 
 ```
-
+## Video (YouTube) Kubernetes Mode
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/CcP4yBOOdWk/3.jpg)](https://youtu.be/CcP4yBOOdWk)
 
 
 ### Diagrams
