@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/shavitbit/ant-simulation.git
     path: antchartnosecret
-    targetRevision: 2.3.3
+    targetRevision: main
     helm:
       parameters:
       - name: images.flask
