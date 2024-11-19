@@ -10,7 +10,7 @@ Ant Simulation is a Python-based project that simulates the behavior of ants to 
 - [Installation GUI Mode](#installation-gui-mode)
 - [Installation Docker Mode](#Installation-Docker-Mode)
 - [Installation Kubernetes Mode](#Installation-Kubernetes-Mode)
-- [YouTube Video Installing in Kubernetes with ArgoCD](#YouTube-Video-Kubernetes-Mode-with-ArgoCD)
+- [YouTube Video Installing helm chart on Kubernetes with ArgoCD](#YouTube-Video-Kubernetes-Mode-with-ArgoCD)
 
 ## Features
 
