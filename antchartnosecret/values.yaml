@@ -1,0 +1,28 @@
+# helm install ant-simulation . --set db.username=oren --set db.password=root --set db.rootpassword=rootoren
+#Flask app values.
+app:
+  flaskreplicaCount: 2
+
+images:
+  flask: philipsinfo/flaskapiant:0.0.5
+  mysql: philipsinfo/antmysql:0.0.1
+
+health:
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 5000
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 5000
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+#Database values.
+db:
+  mysqlreplicaCount: 1
+  host: mysql
+  db_name: ant_db

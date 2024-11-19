@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ant-simulation
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/shavitbit/ant-simulation.git
+    path: antchartnosecret
+    targetRevision: 2.3.3
+    helm:
+      parameters:
+      - name: images.flask
+        value: philipsinfo/flaskapiant:0.0.5
+      - name: images.mysql
+        value: philipsinfo/antmysql:0.0.1
+
+  destination:
+    namespace: default
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=false

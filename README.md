@@ -160,7 +160,7 @@ Customize the slides before starting the simulation
 ## Installation Kubernetes Mode
 To deploy in Kubernetes mode, install the Helm chart from the antchart folder. The chart includes:
 * Deployments
-   * A Flask web application with two instances readinessProb and livenessProbe.
+   * A Flask web application with two instances, readinessProb and livenessProbe.
    * A MySQL database configured as a StatefulSet.
 * Secrets: Used to securely store MySQL credentials.
 * ConfigMap: Passes environment variables to the Flask application.

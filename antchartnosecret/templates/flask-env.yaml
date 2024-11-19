@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-conf-flask
+data:
+ host: {{ .Values.db.host}}
+ name: {{ .Values.db.db_name}}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-conf
+data:
+ host: {{ .Values.db.host}}
+ name: {{ .Values.db.db_name}}
+
